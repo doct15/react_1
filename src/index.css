@@ -1,0 +1,32 @@
+body {
+  background-color: black;
+}
+
+.banner {
+  text-align: left;
+  height: 124px;
+}
+
+
+.contents {
+  position: absolute;
+  top: 125px;
+  width: 108px;
+  color: green;
+}
+
+
+.wmain {
+
+  position: absolute;
+  top: 125px;
+  left: 140px;
+}
+
+abbr {
+  font-size: .8em;
+}
+
+a {
+  color: green;
+}
