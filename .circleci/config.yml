@@ -11,5 +11,5 @@ jobs:
     docker:
       - image: doct15/react1:ci2
         auth:
-          username: doct15:  # can specify string literal values
-          password: $DOCKERHUB_PASSWORD  # or project environment variable reference
+          username: doct15
+          password: $DOCKERHUB_PASSWORD
