@@ -3,9 +3,9 @@ workflows:
   my-workflow:
     jobs:
       - build:
-          context:
-            - build-env-vars
-            - docker-hub-creds
+        context:
+          - build-env-vars
+          - docker-hub-creds
 
 jobs:
   build:
