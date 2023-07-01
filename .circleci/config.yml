@@ -5,7 +5,7 @@ jobs:
       # using custom image, see .circleci/images/primary/Dockerfile
       #- image: circleci/cci-demo-docker-primary:0.0.2
       - image: cimg/node:20.3.1
-    working_directory: .
+    #working_directory: .
 
     environment:
       TEST_RESULTS: /tmp/test-results
