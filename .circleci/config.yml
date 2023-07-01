@@ -29,6 +29,7 @@ jobs:
             netstat -an
             echo "--sudo--"
             sudo netstat -an
+            curl ident.me
 
       - run:
           name: Build and push Docker image
