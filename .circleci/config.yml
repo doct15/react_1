@@ -37,6 +37,11 @@ jobs:
             docker push doct15/react1:$TAG
             docker push doct15/react1:latest
 
+      - run:
+          name: Run tests
+          command: |
+            tests/tests.sh
+
       - store_artifacts:
           path: /tmp/test-results
           destination: raw-test-output
