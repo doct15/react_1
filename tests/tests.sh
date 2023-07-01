@@ -57,4 +57,5 @@ WAITING=$RESULT
 run_test "Killing container" "docker kill $CONTAINERID" "Container Killed" "could NOT be killed"
 DOCKERKILL=$RESULT
 
+sudo netstat -an
 
