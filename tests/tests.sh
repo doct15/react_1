@@ -4,10 +4,12 @@ SECONDS_TO_PAUSEFORCONTAINER=3
 TESTS_FAILED=0
 TESTS_PASSED=0
 LOGFILE="/tmp/test-results-$(date +%Y%m%dT%H%M%S)"
-echo "" > $LOGFILE
+echo -n "" > $LOGFILE
 
 clear
-echo "LOGFILE: $LOGFILE\n\n"
+echo "LOGFILE: $LOGFILE"
+echo ""
+echo ""
 
 error_check() {
   # Pass "$?", "Pass Msg", "Fail Msg"
@@ -54,4 +56,4 @@ DOCKERKILL=$(docker kill $CONTAINERID)
 error_check "$?" "--Container Killed--" "--could NOT be Killed--"
 echo $DOCKERKILL
 
-
+cp $LOGFILE /tmp/test-results
