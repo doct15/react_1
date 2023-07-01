@@ -31,7 +31,7 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG="0.1.${CIRCLE_BUILD_NUM}"
-            docker build -t doct15/react1:$TAG .
+            docker build --quiet=false -t doct15/react1:$TAG .
             docker image tag doct15/react1:$TAG doct15/react1:latest
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker push doct15/react1:$TAG
