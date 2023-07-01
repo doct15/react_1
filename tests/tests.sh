@@ -15,7 +15,7 @@ echo ""
 echo ""
 
 error_check() {
-  # Pass "$?", "Pass Msg", "Fail Msg"
+  # Pass "$?" "Pass Msg" "Fail Msg"
   if [[ $1 -gt 0 ]]; then
     echo $3 | tee -a $LOGFILE
     ((TESTS_FAILED++))
@@ -25,15 +25,27 @@ error_check() {
   fi
 }
 
+run_test() {
+  # Pass "Test Name" "Test Command" "Success Msg" "Fail Message"
+  echo ""
+  echo "$1"
+  echo "---"
+  RESULT="$($2)"
+  error_check "$?" "$3" "$4"
+  echo $RESULT
+}
+
 echo "Starting tests"
 echo "==="
 
-echo ""
-echo "Starting container from image"
-echo "---"
-CONTAINERID=$(docker run -d -p 3000:3000 doct15/react1:latest)
-error_check "$?" "--Container Started--" "--Container Start Failed--"
-echo $CONTAINERID
+#echo ""
+#echo "Starting container from image"
+#echo "---"
+#CONTAINERID=$(docker run -d -p 3000:3000 doct15/react1:latest)
+#error_check "$?" "--Container Started--" "--Container Start Failed--"
+#echo $CONTAINERID
+
+run_test "Starting container from image" "docker run -d -p 3000:3000 doct15/react1:latest" "Container Started" "Container Start FAILED"
 
 echo ""
 echo "Pausing for container run"
