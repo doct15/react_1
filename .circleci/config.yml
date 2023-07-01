@@ -12,18 +12,18 @@ jobs:
     working_directory: .
     docker:
       - image: docker:latest
-        auth:
-          username: doct15
-          password: $DOCKERHUB_PASSWORD
+          auth:
+            username: doct15
+            password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - setup_remote_docker
       - run:
-        name: BUILD
-        command: |
-          docker build --quiet-false -t doct15/react1 .
+          name: BUILD
+          command: |
+            docker build --quiet-false -t doct15/react1 .
       - run:
-        name: PUSH
-        command: |
-          docker push doct15/react1
+          name: PUSH
+          command: |
+            docker push doct15/react1
 
