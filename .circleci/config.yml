@@ -41,10 +41,15 @@ jobs:
             docker push doct15/react1:$TAG
             docker push doct15/react1:latest
 
+      #- run:
+      #    name: Run tests
+      #    command: |
+      #      tests/tests.sh
+
       - run:
           name: Run tests
           command: |
-            tests/tests.sh
+            tests/runtest.sh "Checking for LISTEN on port 3000" "sudo lsof -i:3000" "Listening on 3000" "NOT Listening on 3000"
 
       - store_artifacts:
           path: /tmp/test-results

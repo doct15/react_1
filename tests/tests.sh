@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 SECONDS_TO_PAUSEFORCONTAINER=3
+SECONDS_TO_PAUSEBEFOREKILL=5
 TESTS_FAILED=0
 TESTS_PASSED=0
 LOGDIR="/tmp/test-results"
@@ -16,12 +17,12 @@ echo ""
 
 error_check() {
   # Pass "$?" "Pass Msg" "Fail Msg"
-  if [[ $1 -gt 0 ]]; then
-    echo $3 | tee -a $LOGFILE
-    ((TESTS_FAILED++))
-  else
+  if [[ $1 -eq 0 ]]; then
     echo $2 | tee -a $LOGFILE
     ((TESTS_PASSED++))
+  else
+    echo $3 | tee -a $LOGFILE
+    ((TESTS_FAILED++))
   fi
 }
 
@@ -33,42 +34,27 @@ run_test() {
   RESULT="$($2)"
   error_check "$?" "$3" "$4"
   echo $RESULT
+  #return $RESULT
 }
 
 echo "Starting tests"
 echo "==="
 
-#echo ""
-#echo "Starting container from image"
-#echo "---"
-#CONTAINERID=$(docker run -d -p 3000:3000 doct15/react1:latest)
-#error_check "$?" "--Container Started--" "--Container Start Failed--"
-#echo $CONTAINERID
-
 run_test "Starting container from image" "docker run -d -p 3000:3000 doct15/react1:latest" "Container Started" "Container Start FAILED"
+CONTAINERID=$RESULT
 
-echo ""
-echo "Pausing for container run"
-echo "---"
-echo -n "waiting."
-for (( c=1; c<=$SECONDS_TO_PAUSEFORCONTAINER; c++ ))
-do 
-   sleep 1s
-   echo -n "."
-done
-echo ""
-echo ""
-echo "Checking for LISTEN on port 3000"
-echo "---"
-NETSTAT=$(netstat -an | grep 3000 | grep "LISTEN ")
-error_check "$?" "--Listening on 3000--" "--NOT Listening--"
-echo $NETSTAT
+run_test "Pausing for container run" "sleep $SECONDS_TO_PAUSEFORCONTAINER" "Slept" "something went wrong"
+WAITING=$RESULT
 
-echo ""
-echo "Killing container"
-echo "---"
-DOCKERKILL=$(docker kill $CONTAINERID)
-error_check "$?" "--Container Killed--" "--could NOT be Killed--"
-echo $DOCKERKILL
+run_test "Checking for LISTEN on port 3000" "sudo lsof -i:3000" "Listening on 3000" "NOT Listening on 3000"
+LSOF=$RESULT
+
+run_test "Looking at Docker logs" "docker logs $CONTAINERID" "Logging command successful" "Logging command Failed"
+
+run_test "Pausing before container kill" "sleep $SECONDS_TO_PAUSEBEFOREKILL" "Slept" "something went wrong"
+WAITING=$RESULT
+
+run_test "Killing container" "docker kill $CONTAINERID" "Container Killed" "could NOT be killed"
+DOCKERKILL=$RESULT
 
 
