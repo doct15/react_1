@@ -26,6 +26,9 @@ jobs:
             docker version
             sudo docker version
             cat Dockerfile
+            netstat -an
+            echo "--sudo--"
+            sudo netstat -an
 
       - run:
           name: Build and push Docker image
