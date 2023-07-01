@@ -36,6 +36,7 @@ jobs:
             docker build -t doct15/react1:$TAG .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker push doct15/react1:$TAG
+            docker push doct15/react1:latest
 
       - store_artifacts:
           path: /tmp/test-results
