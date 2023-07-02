@@ -43,7 +43,7 @@ echo "==="
 run_test "Starting container from image" "docker run -d -p 3000:3000 doct15/react1:latest" "Container Started" "Container Start FAILED"
 CONTAINERID=$RESULT
 
-run_test "Pausing for container run" "sleep $SECONDS_TO_PAUSEFORCONTAINER" "Slept" "something went wrong"
+run_test "Pausing for container run $SECONDS_TO_PAUSEFORCONTAINER" "sleep $SECONDS_TO_PAUSEFORCONTAINER" "Slept" "something went wrong"
 WAITING=$RESULT
 
 run_test "Checking for LISTEN on port 3000" "sudo lsof -i:3000" "Listening on 3000" "NOT Listening on 3000"
@@ -55,7 +55,7 @@ sudo netstat -an
 docker ps
 docker images
 
-run_test "Pausing before container kill" "sleep $SECONDS_TO_PAUSEBEFOREKILL" "Slept" "something went wrong"
+run_test "Pausing before container kill $SECONDS_TO_PAUSEBEFOREKILL" "sleep $SECONDS_TO_PAUSEBEFOREKILL" "Slept" "something went wrong"
 WAITING=$RESULT
 
 run_test "Killing container" "docker kill $CONTAINERID" "Container Killed" "could NOT be killed"
