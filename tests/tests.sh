@@ -51,14 +51,16 @@ LSOF=$RESULT
 
 run_test "Looking at Docker logs" "docker logs $CONTAINERID" "Logging command successful" "Logging command Failed"
 
+sudo netstat -an
+docker ps
+docker images
+
 run_test "Pausing before container kill" "sleep $SECONDS_TO_PAUSEBEFOREKILL" "Slept" "something went wrong"
 WAITING=$RESULT
 
 run_test "Killing container" "docker kill $CONTAINERID" "Container Killed" "could NOT be killed"
 DOCKERKILL=$RESULT
 
-sudo netstat -an
-docker ps
-docker images
+
 
 
