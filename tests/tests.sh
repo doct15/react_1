@@ -58,6 +58,10 @@ docker images
 run_test "Pausing before container kill $SECONDS_TO_PAUSEBEFOREKILL" "sleep $SECONDS_TO_PAUSEBEFOREKILL" "Slept" "something went wrong"
 WAITING=$RESULT
 
+sudo lsof -i:3000
+docker ps
+docker images
+
 run_test "Killing container" "docker kill $CONTAINERID" "Container Killed" "could NOT be killed"
 DOCKERKILL=$RESULT
 
