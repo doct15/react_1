@@ -58,4 +58,7 @@ run_test "Killing container" "docker kill $CONTAINERID" "Container Killed" "coul
 DOCKERKILL=$RESULT
 
 sudo netstat -an
+docker ps
+docker images
+
 
