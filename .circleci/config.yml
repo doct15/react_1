@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 orbs:
   aviator-upload-orb: aviator/aviator-upload-orb@0.0.3
 jobs:
@@ -48,12 +48,12 @@ jobs:
           command: |
             tests/tests.sh
 
+      - aviator-upload-orb/upload:
+          assets: "/tmp/test-results/test-results*"
+
       - store_artifacts:
           path: /tmp/test-results
           destination: raw-test-output
-
-      - aviator-upload-orb/upload:
-          assets: "/tmp/test-results/test-results*"
 
       - store_test_results:
          path: /tmp/test-results
